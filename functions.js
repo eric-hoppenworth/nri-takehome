@@ -30,11 +30,28 @@ const getStrands = function (hash) {
     return strands;
 }
 
+const getStrandsByStandard = function (hash) {
+    const strands = {};
+    for (let key in hash) {
+        const question = hash[key];
+        if (!strands[question.strand_id]) {
+            strands[question.strand_id] = {};
+        }
+        if (!strands[question.strand_id][question.standard_id]) {
+            strands[question.strand_id][question.standard_id] = [];
+        }
+
+        strands[question.strand_id][question.standard_id].push(question);
+    }
+    return strands;
+}
+
 const getIds = function (questionList) {
     return questionList.map(question => question.question_id)
 }
 module.exports = {
     getQuestionHash,
     getStrands,
+    getStrandsByStandard,
     getIds
 };
