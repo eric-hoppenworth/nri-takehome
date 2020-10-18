@@ -3,18 +3,22 @@ const {getQuestionHash, getStrands, getIds} = require('./functions.js');
 
 const createQuiz = function(number_of_questions) {
     const quesitonHash = getQuestionHash();
-    let availableQuestion = getStrands(quesitonHash);
-    let keys = Object.keys(availableQuestion);
+    let availableQuestions = getStrands(quesitonHash);
+    let keys = Object.keys(availableQuestions);
     const quizList = [];
-    for(let i = 0; i < number_of_questions; i++) {
+    let i = 0
+    while (quizList.length < number_of_questions) {
         let strandId = keys[i % keys.length];
-        let nextQuestion = availableQuestion[strandId].pop();
+        let nextQuestion = availableQuestions[strandId].pop();
         if (!nextQuestion) {
             // TODO: repopulate the list? pull from another strand?
+            availableQuestions[strandId] = getStrands(quesitonHash)[strandId];
             continue;
         }
         quizList.push(nextQuestion);
+        i++;
     }
+    
     console.log(getIds(quizList).join(","));
 }
 
