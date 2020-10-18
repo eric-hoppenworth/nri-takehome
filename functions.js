@@ -17,6 +17,24 @@ const getQuestionHash = function () {
     return questionHash;
 }
 
+
+const getStrands = function (hash) {
+    const strands = {};
+    for (let key in hash) {
+        const question = hash[key];
+        if (!strands[question.strand_id]) {
+            strands[question.strand_id] = [];
+        }
+        strands[question.strand_id].push(question);
+    }
+    return strands;
+}
+
+const getIds = function (questionList) {
+    return questionList.map(question => question.question_id)
+}
 module.exports = {
-    getQuestionHash
+    getQuestionHash,
+    getStrands,
+    getIds
 };

@@ -1,6 +1,6 @@
 const program = require("commander");
 const pkg = require('./package.json');
-const {getQuestionHash} = require('./functions.js')
+const actions = require('./actions.js');
 
 program
 	.version(pkg.version)
@@ -9,8 +9,6 @@ program
 program
 	.command("quiz <number_of_questions>")
     .description("Creates a list of question ids")
-    .action((number_of_questions)=>{
-        console.log(getQuestionHash())
-    });
+    .action(actions.createQuiz);
 
 program.parse(process.argv);
