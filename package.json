@@ -1,0 +1,19 @@
+{
+  "name": "nri-backend-takehome",
+  "version": "1.0.0",
+  "description": "Creates quizes from the given questions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eric-hoppenworth/nri-takehome.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eric-hoppenworth/nri-takehome/issues"
+  },
+  "homepage": "https://github.com/eric-hoppenworth/nri-takehome#readme"
+}
