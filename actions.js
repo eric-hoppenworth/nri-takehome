@@ -28,6 +28,22 @@ function getStandardsHash(availableQuestions) {
     return standardsByStrand;
 }
 
+function getSortedQuiz(quizList) {
+    return quizList.map(item => item).sort((questionA, questionB) => {
+        if (questionA.standard_id === questionB.standard_id) {
+            if (questionA.difficulty < questionB.difficulty) {
+                return -1; // A comes first
+            } else if (questionA.difficulty > questionB.difficulty){
+                return 1; // A comes second
+            }
+            return 0;
+        } else {
+            return questionA.standard_id < questionB.standard_id ? -1 : 1;
+        }
+    });
+}
+
+
 function getEvenStrands(count) {
     const quesitonHash = getQuestionHash();
     const availableQuestions = getStrands(quesitonHash);
@@ -46,7 +62,7 @@ function getEvenStrands(count) {
         i++;
     }
 
-    console.log(getIds(quizList).join(","));
+    console.log(getIds(getSortedQuiz(quizList)).join(","));
 }
 
 function getEvenStandards(count) {
@@ -71,7 +87,7 @@ function getEvenStandards(count) {
         quizList.push(nextQuestion);
         i++;
     }
-    console.log(quizList);
+    console.log(getIds(getSortedQuiz(quizList)).join(","));
 }
 
 const createQuiz = function(number_of_questions, cmd) {
@@ -81,7 +97,7 @@ const createQuiz = function(number_of_questions, cmd) {
     }
 
     const count = parseInt(number_of_questions);
-    // getEvenStrands(count);
+    getEvenStrands(count);
     getEvenStandards(count);
 }
 

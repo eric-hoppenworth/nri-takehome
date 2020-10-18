@@ -17,6 +17,9 @@ const getQuestionHash = function () {
     return questionHash;
 }
 
+const getUsageList = function () {
+    
+}
 
 const getStrands = function (hash) {
     const strands = {};
