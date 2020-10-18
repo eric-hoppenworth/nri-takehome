@@ -1,3 +1,7 @@
+Install the application dependencies with:
+
+`npm install`
+
 Run the following command to start the application:
 
 `node index.js --help`

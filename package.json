@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/eric-hoppenworth/nri-takehome/issues"
   },
-  "homepage": "https://github.com/eric-hoppenworth/nri-takehome#readme"
+  "homepage": "https://github.com/eric-hoppenworth/nri-takehome#readme",
+  "dependencies": {
+    "commander": "^6.1.0"
+  }
 }
