@@ -18,7 +18,7 @@ const getQuestionHash = function () {
 }
 
 const getUsageList = function () {
-    
+
 }
 
 const getStrands = function (hash) {
@@ -29,6 +29,16 @@ const getStrands = function (hash) {
             strands[question.strand_id] = [];
         }
         strands[question.strand_id].push(question);
+    }
+    // shuffle the questions
+    for (let id in strands) {
+        strands[id].forEach((question, index) => {
+            question.rand = Math.random();
+        });
+
+        strands[id].sort((a,b)=>{
+            return a.rand < b.rand ? -1 : 1;
+        });
     }
     return strands;
 }
@@ -45,6 +55,17 @@ const getStrandsByStandard = function (hash) {
         }
 
         strands[question.strand_id][question.standard_id].push(question);
+    }
+    for (let strand_id in strands) {
+        for (let standard_id in strands[strand_id]) {
+            strands[strand_id][standard_id].forEach((question, index) => {
+                question.rand = Math.random();
+            });
+
+            strands[strand_id][standard_id].sort((a,b)=>{
+                return a.rand < b.rand ? -1 : 1;
+            });
+        }
     }
     return strands;
 }

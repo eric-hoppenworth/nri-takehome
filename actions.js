@@ -28,6 +28,8 @@ function getStandardsHash(availableQuestions) {
     return standardsByStrand;
 }
 
+
+// sorting as suggested puts duplicate questions next to one another
 function getSortedQuiz(quizList) {
     return quizList.map(item => item).sort((questionA, questionB) => {
         if (questionA.standard_id === questionB.standard_id) {
@@ -53,8 +55,8 @@ function getEvenStrands(count) {
     while (quizList.length < count) {
         let strandId = strandIds[i % strandIds.length];
         let nextQuestion = availableQuestions[strandId].pop();
+        // TODO: check if this question is in the "usage" list.  if it is, omit it once (and remove from usage list?)
         if (!nextQuestion) {
-            // TODO: repopulate the list? pull from another strand?
             availableQuestions[strandId] = getStrands(quesitonHash)[strandId];
             continue;
         }
@@ -77,11 +79,13 @@ function getEvenStandards(count) {
     while (quizList.length < count) {
         let strandId = strandIds[i % strandIds.length];
         let standardId = standardsHash[strandId].ids[standardsHash[strandId].pointer];
-        // increase the pointer to the next standard id
+
         standardsHash[strandId].pointer = (standardsHash[strandId].pointer+1) % standardsHash[strandId].ids.length;
         let nextQuestion = availableQuestions[strandId][standardId].pop();
+        // TODO: check if this question is in the "usage" list.  if it is, omit it once (and remove from usage list?)
         if (!nextQuestion) {
             availableQuestions[strandId][standardId] = getStrandsByStandard(quesitonHash)[strandId][standardId];
+            standardsHash[strandId].pointer = 0;
             continue;
         }
         quizList.push(nextQuestion);
@@ -95,10 +99,12 @@ const createQuiz = function(number_of_questions, cmd) {
     if (msg) {
         return console.log(msg);
     }
-
     const count = parseInt(number_of_questions);
-    getEvenStrands(count);
-    getEvenStandards(count);
+    if (cmd.ignoreStandards) {
+        getEvenStrands(count);
+    } else {
+        getEvenStandards(count);
+    }
 }
 
 
